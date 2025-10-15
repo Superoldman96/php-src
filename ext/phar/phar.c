@@ -1596,7 +1596,7 @@ zend_result phar_open_from_filename(char *fname, size_t fname_len, char *alias, 
 }
 /* }}}*/
 
-static inline char *phar_strnstr(const char *buf, int buf_len, const char *search, int search_len) /* {{{ */
+static inline char *phar_strnstr(const char *buf, size_t buf_len, const char *search, size_t search_len) /* {{{ */
 {
 	const char *c;
 	ptrdiff_t so_far = 0;
@@ -2251,7 +2251,7 @@ zend_result phar_split_fname(const char *filename, size_t filename_len, char **a
 #endif
 	size_t ext_len;
 
-	if (CHECK_NULL_PATH(filename, filename_len)) {
+	if (zend_char_has_nul_byte(filename, filename_len)) {
 		return FAILURE;
 	}
 
